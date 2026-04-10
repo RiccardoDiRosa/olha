@@ -36,6 +36,7 @@ export function Reviews() {
       const { data, error } = await supabase
         .from('recensioni')
         .select('*')
+        .eq('approved', true)
         .order('created_at', { ascending: false });
 
       if (error) throw error;
@@ -57,7 +58,7 @@ export function Reviews() {
     try {
       const { error } = await supabase
         .from('recensioni')
-        .insert([{ nome, stelle, testo }]);
+        .insert([{ nome, stelle, testo, approved: false }]);
 
       if (error) throw error;
 
